@@ -1,62 +1,89 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>LabTest 2 | C0849575</title>
-	<meta charset="UTF-8">
-</head>
-<body>
-    <h1>Car Price Calculator</h1>
-    <form id="carform" autocomplete="off">
-        <label>
-            <input id="sunroof" type="checkbox" value="1000" data-itemname="Sunroof">
+  <head>
+    <title>LabTest 2 | C0849575</title>
+    <link rel="icon" type="image/x-icon" href="/images/car.png" />
+    <meta charset="UTF-8" />
+    <style>
+      .container {
+        border-style: solid;
+        border-width: 1;
+        border-color: #333;
+        border-radius: 25px;
+        padding: 20px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body style="background-color: #cccccc">
+    <center>
+        <img width="100" src="images/car.png" />
+      <h1>Car Price Calculator</h1>
+      <div class="container">
+        <form id="carform" autocomplete="off" style="text-align: center">
+          <label>
+            <input
+              id="sunroof"
+              type="checkbox"
+              value="1000"
+              data-itemname="Sunroof"
+            />
             Sunroof: $1000
-        </label>
-        <label>
-            <input id="gps" type="checkbox" value="5000" data-itemname="Built-in GPS">
+          </label>
+          <label>
+            <input
+              id="gps"
+              type="checkbox"
+              value="5000"
+              data-itemname="Built-in GPS"
+            />
             Built-in GPS: $5000
-        </label>
-    </form>
-    
-    <div>
-        Selections:
-        <div id="selections"></div>
-        
-        Total Price: <span id="price"></span>
-    </div>
-    
+          </label>
+        </form>
+
+        <div>
+          Selections:
+          <div id="selections"></div>
+
+          Total Price: <span id="price"></span>
+        </div>
+      </div>
+    </center>
 
     <script>
-        var price = 20000;
-        document.getElementById('price').innerHTML = price;
-        
-        var options = document.getElementById('carform').querySelectorAll('input');
-        for(var i=0; i<options.length; i++){
-            options[i].onclick = handleOption;
+      var price = 20000;
+      document.getElementById("price").innerHTML = price;
+
+      var options = document
+        .getElementById("carform")
+        .querySelectorAll("input");
+      for (var i = 0; i < options.length; i++) {
+        options[i].onclick = handleOption;
+      }
+
+      function handleOption() {
+        var itemPrice = Number(this.value);
+        if (this.checked) {
+          price += itemPrice;
+        } else {
+          price -= itemPrice;
         }
-        
-        function handleOption(){
-            var itemPrice = Number(this.value);
-            if(this.checked){
-                price += itemPrice;
-            }
-            else{
-                price -= itemPrice;
-            }
-        
-            showSelections();
-            document.getElementById('price').innerHTML = price;
+
+        showSelections();
+        document.getElementById("price").innerHTML = price;
+      }
+
+      function showSelections() {
+        var list = [];
+        var checkedOnes = document
+          .getElementById("carform")
+          .querySelectorAll("input:checked");
+        for (var i = 0; i < checkedOnes.length; i++) {
+          var itemname = checkedOnes[i].getAttribute("data-itemname");
+          list.push(itemname);
         }
-        
-        function showSelections(){
-            var list = [];
-            var checkedOnes = document.getElementById('carform').querySelectorAll('input:checked');
-            for(var i=0; i<checkedOnes.length; i++){
-                var itemname = checkedOnes[i].getAttribute('data-itemname');
-                list.push(itemname);
-            }
-            document.getElementById('selections').innerHTML = list.join('<br>');
-        }
-        </script>
-        
-</body>
+        document.getElementById("selections").innerHTML = list.join("<br>");
+      }
+    </script>
+  </body>
 </html>
